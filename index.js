@@ -27,7 +27,8 @@ app.post("/prompt", async (req, res) => {
   const result = await model.generateContent(prompt);
   const response = await result.response;
   const text = response.text();
-  res.send({ data: text, status: 200 });
+  const cleanJsonString = text.replace(/\\n/g, "").replace(/\\/g, "");
+  res.send({ data: cleanJsonString, status: 200 });
 });
 
 app.get("/", (req, res) => {
